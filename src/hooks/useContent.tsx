@@ -19,7 +19,12 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const saved = localStorage.getItem('oxley_content_v3');
     if (!saved) return INITIAL_CONTENT;
     try {
-      return JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      // Migration: Ensure formType is present and defaulted to built-in for existing users
+      if (parsed.cta && !parsed.cta.formType) {
+        parsed.cta.formType = 'built-in';
+      }
+      return parsed;
     } catch (e) {
       return INITIAL_CONTENT;
     }

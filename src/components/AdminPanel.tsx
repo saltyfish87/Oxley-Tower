@@ -426,14 +426,28 @@ export const AdminPanel: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Briksfunnel Embed Code (Optional)</label>
-                    <textarea 
-                      value={tempContent.cta.embedCode || ''} 
-                      onChange={(e) => updateField('cta.embedCode', e.target.value)}
-                      className="w-full p-3 border rounded-xl h-32 font-mono text-xs"
-                      placeholder="Paste your code from briksfunnel here. If present, it will replace the WhatsApp button."
-                    />
+                    <label className="block text-sm font-medium mb-2">Lead Collection Type</label>
+                    <select 
+                      value={tempContent.cta.formType || 'whatsapp'} 
+                      onChange={(e) => updateField('cta.formType', e.target.value)}
+                      className="w-full p-3 border rounded-xl"
+                    >
+                      <option value="whatsapp">WhatsApp Button Only</option>
+                      <option value="built-in">Built-in Contact Form (Email to {tempContent.agent.email || 'saltyfish1987@gmail.com'})</option>
+                      <option value="embed">Custom Embed (Briksfunnel etc.)</option>
+                    </select>
                   </div>
+                  {tempContent.cta.formType === 'embed' && (
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Briksfunnel Embed Code</label>
+                      <textarea 
+                        value={tempContent.cta.embedCode || ''} 
+                        onChange={(e) => updateField('cta.embedCode', e.target.value)}
+                        className="w-full p-3 border rounded-xl h-32 font-mono text-xs"
+                        placeholder="Paste your code from briksfunnel here."
+                      />
+                    </div>
+                  )}
                 </div>
               </section>
 

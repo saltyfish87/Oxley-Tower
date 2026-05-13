@@ -40,14 +40,15 @@ const LegalModal: React.FC<{ isOpen: boolean; onClose: () => void; title: string
 
 function LandingPage() {
   const { language } = useContent();
-  const [modal, setModal] = useState<'privacy' | 'terms' | null>(null);
+  const [modal, setModal] = useState<'privacy' | 'terms' | 'disclaimer' | null>(null);
+  const { content } = useContent();
 
   const policyContent = {
     privacy: {
       title: language === 'en' ? 'Privacy Policy' : '隐私政策',
       body: language === 'en' ? (
         <>
-          <p>This Privacy Policy explains how Yee Woei Shyan (REN 46305) and IQI Holdings SDN BHD collect, use, and protect your personal data in accordance with the Malaysian Personal Data Protection Act 2010 (PDPA).</p>
+          <p>This Privacy Policy explains how IQI Holdings SDN BHD collects, uses, and protects your personal data in accordance with the Malaysian Personal Data Protection Act 2010 (PDPA).</p>
           <h3 className="font-bold text-black mt-4">1. Collection of Information</h3>
           <p>We may collect your name, email address, and phone number when you inquire via WhatsApp or our platform.</p>
           <h3 className="font-bold text-black mt-4">2. Use of Information</h3>
@@ -57,7 +58,7 @@ function LandingPage() {
         </>
       ) : (
         <>
-          <p>本隐私政策说明了 Yee Woei Shyan (REN 46305) 和 IQI Holdings SDN BHD 如何根据 2010 年马来西亚个人数据保护法 (PDPA) 收集、使用和保护您的个人数据。</p>
+          <p>本隐私政策说明了 IQI Holdings SDN BHD 如何根据 2010 年马来西亚个人数据保护法 (PDPA) 收集、使用和保护您的个人数据。</p>
           <h3 className="font-bold text-black mt-4">1. 信息收集</h3>
           <p>当您通过 WhatsApp 或我们的平台咨询时，我们可能会收集您的姓名、电子邮件地址和电话号码。</p>
           <h3 className="font-bold text-black mt-4">2. 信息用途</h3>
@@ -74,7 +75,7 @@ function LandingPage() {
           <p>By using this website, you agree to the following terms:</p>
           <ul className="list-disc pl-5">
             <li>The information provided is for marketing purposes and is subject to change without notice.</li>
-            <li>This is not the official developer website. It is managed by an authorized real estate negotiator.</li>
+            <li>This is not the official developer website. It is managed by an authorized real estate agency.</li>
             <li>All architectural renderings are artist impressions only.</li>
           </ul>
         </>
@@ -83,10 +84,19 @@ function LandingPage() {
           <p>使用本网站即表示您同意以下条款：</p>
           <ul className="list-disc pl-5">
             <li>所提供的信息仅用于营销目的，如有更改，恕不另行通知。</li>
-            <li>这不是开发商的官方网站。它由授权的房地产经纪人管理。</li>
+            <li>这不是开发商的官方网站。它由授权的房地产公司管理。</li>
             <li>所有建筑渲染图仅为艺术家印象。</li>
           </ul>
         </>
+      )
+    },
+    disclaimer: {
+      title: language === 'en' ? 'Disclaimer' : '免责声明',
+      body: (
+        <div className="space-y-4">
+          <p>{content.disclaimers.management[language]}</p>
+          <p>{content.disclaimers.general[language]}</p>
+        </div>
       )
     }
   };
@@ -106,7 +116,11 @@ function LandingPage() {
         <CTA />
       </main>
       
-      <Footer onShowPrivacy={() => setModal('privacy')} onShowTerms={() => setModal('terms')} />
+      <Footer 
+        onShowPrivacy={() => setModal('privacy')} 
+        onShowTerms={() => setModal('terms')} 
+        onShowDisclaimer={() => setModal('disclaimer')}
+      />
       
       <AdminPanel />
       <FloatingButtons />

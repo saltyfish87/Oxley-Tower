@@ -4,6 +4,7 @@ import { useContent } from '../hooks/useContent';
 import { MapPin, Instagram, Facebook, Send, Phone, ArrowRight, Maximize2 } from 'lucide-react';
 import { SectionHeader } from './Sections';
 import { ImageModal } from './ImageModal';
+import { ContactForm } from './ContactForm';
 
 export const Location: React.FC = () => {
   const { content, language } = useContent();
@@ -145,7 +146,9 @@ export const CTA: React.FC = () => {
             &ldquo;{content.cta.subtitle[language]}&rdquo;
           </p>
 
-          {content.cta.embedCode ? (
+          {content.cta.formType === 'built-in' ? (
+            <ContactForm />
+          ) : content.cta.formType === 'embed' && content.cta.embedCode ? (
             <div className="mb-16 bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10">
               <div 
                 dangerouslySetInnerHTML={{ __html: content.cta.embedCode }} 
@@ -186,7 +189,11 @@ export const CTA: React.FC = () => {
   );
 };
 
-export const Footer: React.FC<{ onShowPrivacy: () => void; onShowTerms: () => void }> = ({ onShowPrivacy, onShowTerms }) => {
+export const Footer: React.FC<{ 
+  onShowPrivacy: () => void; 
+  onShowTerms: () => void;
+  onShowDisclaimer: () => void;
+}> = ({ onShowPrivacy, onShowTerms, onShowDisclaimer }) => {
   const { content, language } = useContent();
   return (
     <footer className="bg-oxley-green-dark pt-32 pb-16">
@@ -212,6 +219,12 @@ export const Footer: React.FC<{ onShowPrivacy: () => void; onShowTerms: () => vo
                   className="text-left text-[10px] text-white/20 hover:text-white transition-colors uppercase tracking-widest"
                 >
                   {language === 'en' ? 'Terms & Conditions' : '条款与细则'}
+                </button>
+                <button 
+                  onClick={onShowDisclaimer}
+                  className="text-left text-[10px] text-white/20 hover:text-white transition-colors uppercase tracking-widest"
+                >
+                  {language === 'en' ? 'Disclaimer' : '免责声明'}
                 </button>
              </div>
           </div>

@@ -107,10 +107,15 @@ export interface SiteContent {
     subtitle: BilingualText;
     buttonText: BilingualText;
     embedCode?: string;
+    formType?: 'whatsapp' | 'embed' | 'built-in';
   };
   agent: AgentDetails;
   disclaimers: {
     management: BilingualText;
     general: BilingualText;
+  };
+  legal: {
+    terms: BilingualText;
+    privacy: BilingualText;
   };
 }

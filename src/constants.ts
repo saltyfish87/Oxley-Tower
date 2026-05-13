@@ -386,10 +386,11 @@ export const INITIAL_CONTENT: SiteContent = {
       en: "WhatsApp Inquiry",
       zh: "WhatsApp 咨询"
     },
-    embedCode: ""
+    embedCode: "",
+    formType: "built-in"
   },
   agent: {
-    name: "IQI Global",
+    name: "IQI Holdings SDN BHD",
     ren: "",
     agency: "IQI Holdings SDN BHD",
     agencyReg: "E(1)1584",
@@ -405,6 +406,16 @@ export const INITIAL_CONTENT: SiteContent = {
     general: {
       en: "All information is subject to change. Architectural renderings and artist impressions are for illustrative purposes only.",
       zh: "所有信息如有更改，恕不另行通知。建筑平面图和艺术家印象仅用于说明目的。"
+    }
+  },
+  legal: {
+    terms: {
+      en: "By accessing this website, you agree to be bound by these terms of use and all applicable laws and regulations. The information provided on this website is for general informational purposes only.",
+      zh: "访问本网站即表示您同意受这些使用条和所有适用法律法规的约束。本网站提供的信息仅供一般参考之用。"
+    },
+    privacy: {
+      en: "We value your privacy. Any personal information you provide to us through this website will be handled in accordance with our privacy policy and the Personal Data Protection Act (PDPA).",
+      zh: "我们重视您的隐私。您通过本网站向我们提供的任何个人信息都将根据我们的隐私政策和个人数据保护法 (PDPA) 进行处理。"
     }
   }
 };
