@@ -1,6 +1,6 @@
 {
-  "name": "Oxley Towers KLCC Landing Page",
-  "description": "High-conversion bilingual landing page for Oxley Towers KLCC with built-in CMS, WhatsApp integration, and Malaysian real estate compliance.",
+  "name": "Oxley Towers KLCC",
+  "description": "Premium bilingual landing page for Oxley Towers KLCC residences featuring SO/ KL and Jewel Residences. Includes real-time CMS and WhatsApp integration.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

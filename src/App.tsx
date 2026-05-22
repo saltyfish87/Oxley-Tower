@@ -38,6 +38,48 @@ const LegalModal: React.FC<{ isOpen: boolean; onClose: () => void; title: string
   </AnimatePresence>
 );
 
+const SEOManager: React.FC = () => {
+  const { content } = useContent();
+  
+  React.useEffect(() => {
+    if (content.seo) {
+      document.title = content.seo.title;
+      
+      const updateMeta = (name: string, contentStr: string) => {
+        let meta = document.querySelector(`meta[name="${name}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('name', name);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', contentStr);
+      };
+
+      const updateOgMeta = (property: string, contentStr: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', contentStr);
+      };
+
+      updateMeta('description', content.seo.description);
+      updateMeta('keywords', content.seo.keywords);
+      
+      updateOgMeta('og:title', content.seo.title);
+      updateOgMeta('og:description', content.seo.description);
+      updateOgMeta('og:image', content.hero.image);
+      updateMeta('twitter:title', content.seo.title);
+      updateMeta('twitter:description', content.seo.description);
+      updateMeta('twitter:image', content.hero.image);
+    }
+  }, [content.seo, content.hero.image]);
+
+  return null;
+};
+
 function LandingPage() {
   const { language } = useContent();
   const [modal, setModal] = useState<'privacy' | 'terms' | 'disclaimer' | null>(null);
@@ -63,7 +105,7 @@ function LandingPage() {
           <p>当您通过 WhatsApp 或我们的平台咨询时，我们可能会收集您的姓名、电子邮件地址和电话号码。</p>
           <h3 className="font-bold text-black mt-4">2. 信息用途</h3>
           <p>收集的信息仅用于回复您对 Oxley Towers KLCC 的咨询并提供房产更新信息。</p>
-          <h3 className="font-bold text-black mt-4">3. 数据保护</h3>
+          <h3 className="font-bold text-black mt-4">1. 数据保护</h3>
           <p>我们实施安全措施来保护您的数据。未经您的同意，我们不会向第三方出售或共享您的数据。</p>
         </>
       )
@@ -77,6 +119,7 @@ function LandingPage() {
             <li>The information provided is for marketing purposes and is subject to change without notice.</li>
             <li>This is not the official developer website. It is managed by an authorized real estate agency.</li>
             <li>All architectural renderings are artist impressions only.</li>
+            <li>By submitting your contact details, you consent to being contacted by our representatives regarding property news and promotional offers.</li>
           </ul>
         </>
       ) : (
@@ -86,6 +129,7 @@ function LandingPage() {
             <li>所提供的信息仅用于营销目的，如有更改，恕不另行通知。</li>
             <li>这不是开发商的官方网站。它由授权的房地产公司管理。</li>
             <li>所有建筑渲染图仅为艺术家印象。</li>
+            <li>提交您的联系详情即表示您同意我们的代表就房产新闻和促销优惠与您联系。</li>
           </ul>
         </>
       )
@@ -103,6 +147,7 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-oxley-gold selection:text-white">
+      <SEOManager />
       <Navbar />
       <main>
         <Hero />

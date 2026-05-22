@@ -434,6 +434,44 @@ export const AdminPanel: React.FC = () => {
                 </section>
               )}
 
+              {/* SEO Section */}
+              <section className="bg-blue-50/30 p-6 rounded-2xl border border-blue-100">
+                <h3 className="text-xs uppercase tracking-widest text-blue-500 font-bold mb-4 flex items-center gap-2">
+                  <Settings className="w-3 h-3" /> SEO & Global Head Settings
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Browser Title (SEO Title)</label>
+                    <p className="text-[10px] text-gray-500 mb-2">The text that appears in search results and browser tabs.</p>
+                    <input 
+                      type="text" 
+                      value={tempContent.seo?.title || ''} 
+                      onChange={(e) => updateField('seo.title', e.target.value)}
+                      className="w-full p-3 border rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Meta Description</label>
+                    <p className="text-[10px] text-gray-500 mb-2">A summary that appears below the title in search engines.</p>
+                    <textarea 
+                      value={tempContent.seo?.description || ''} 
+                      onChange={(e) => updateField('seo.description', e.target.value)}
+                      className="w-full p-3 border rounded-xl h-24 text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Keywords</label>
+                    <p className="text-[10px] text-gray-500 mb-2">Separated by commas (e.g. luxury, KLCC, property).</p>
+                    <input 
+                      type="text" 
+                      value={tempContent.seo?.keywords || ''} 
+                      onChange={(e) => updateField('seo.keywords', e.target.value)}
+                      className="w-full p-3 border rounded-xl"
+                    />
+                  </div>
+                </div>
+              </section>
+
               {/* CTA Section */}
               <section>
                 <h3 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-4">CTA & Lead Form</h3>
@@ -716,17 +754,28 @@ export const AdminPanel: React.FC = () => {
 export const FloatingButtons: React.FC = () => {
   const { content, setIsEditing } = useContent();
   const whatsappUrl = `https://wa.me/${content.agent.phone}?text=${encodeURIComponent(content.agent.whatsappMessage)}`;
+  
+  // Logic to show admin button: 
+  // 1. If in AI Studio Preview (ais-dev or ais-pre hostname)
+  // 2. OR if ?manage=true is in the URL
+  const isAdminVisible = typeof window !== 'undefined' && (
+    window.location.hostname.includes('asia-southeast1.run.app') || 
+    window.location.hostname.includes('localhost') ||
+    window.location.search.includes('manage=true')
+  );
 
   return (
     <div className="fixed bottom-6 right-6 z-[90] flex flex-col space-y-4">
       {/* CMS Trigger */}
-      <button
-        onClick={() => setIsEditing(true)}
-        className="w-14 h-14 bg-white text-black rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all border border-gray-100"
-        title="Admin Panel"
-      >
-        <Settings className="w-6 h-6" />
-      </button>
+      {isAdminVisible && (
+        <button
+          onClick={() => setIsEditing(true)}
+          className="w-14 h-14 bg-white text-black rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all border border-gray-100"
+          title="Admin Panel"
+        >
+          <Settings className="w-6 h-6" />
+        </button>
+      )}
 
       {/* Floating WhatsApp */}
       <a

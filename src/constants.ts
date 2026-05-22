@@ -959,6 +959,11 @@ export const INITIAL_CONTENT: SiteContent = {
       "zh": "所有信息如有更改，恕不另行通知。建筑平面图和艺术家印象仅用于说明目的。"
     }
   },
+  "seo": {
+    "title": "Oxley Towers KLCC | Luxury Residences & SO/ KL Residences",
+    "description": "Oxley Towers KLCC - The Jewel of Kuala Lumpur Skyline. Discover luxury freehold residences including SO/ KL Residences and Jewel Residences in the heart of KLCC.",
+    "keywords": "Oxley Towers KLCC, SO/ KL Residences, Jewel Residences, KL luxury condo, Kuala Lumpur real estate, freehold KLCC property, Oxley Rising"
+  },
   "legal": {
     "terms": {
       "en": "By accessing this website, you agree to be bound by these terms of use and all applicable laws and regulations. The information provided on this website is for general informational purposes only.",

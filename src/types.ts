@@ -115,6 +115,11 @@ export interface SiteContent {
     management: BilingualText;
     general: BilingualText;
   };
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
   legal: {
     terms: BilingualText;
     privacy: BilingualText;
