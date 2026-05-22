@@ -17,8 +17,11 @@ export const ContactForm: React.FC = () => {
     e.preventDefault();
     setStatus('loading');
 
+    // Create a controller to handle timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     try {
-      // Using FormSubmit AJAX as it allows direct email targeting without pre-registration
       const response = await fetch('https://formsubmit.co/ajax/saltyfish1987@gmail.com', {
         method: 'POST',
         headers: {
@@ -28,18 +31,32 @@ export const ContactForm: React.FC = () => {
         body: JSON.stringify({
           ...formData,
           _subject: `New Lead: ${formData.name} - Oxley KLCC`,
-          _template: 'box'
-        })
+          _template: 'box',
+          _autoresponse: 'Thank you for your inquiry about Oxley KLCC. We will contact you shortly.'
+        }),
+        signal: controller.signal
       });
 
-      const result = await response.json();
+      clearTimeout(timeoutId);
+      
+      let result = { success: 'false' };
+      try {
+        result = await response.json();
+      } catch (e) {
+        // If JSON fails, check response status
+        if (response.ok) result = { success: 'true' };
+      }
+
       if (result.success === 'true' || response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', phone: '', message: '' });
       } else {
+        console.error('Form submission failed', result);
         setStatus('error');
       }
     } catch (error) {
+      clearTimeout(timeoutId);
+      console.error('Submission error:', error);
       setStatus('error');
     }
   };
