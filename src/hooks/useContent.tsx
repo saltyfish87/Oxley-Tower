@@ -16,15 +16,15 @@ const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(() => {
-    const saved = localStorage.getItem('oxley_content_v3');
+    const saved = localStorage.getItem('oxley_content_v4_final');
     if (!saved) return INITIAL_CONTENT;
     try {
       const parsed = JSON.parse(saved);
-      // Migration: Ensure formType is present and defaulted to built-in for existing users
-      if (parsed.cta && !parsed.cta.formType) {
-        parsed.cta.formType = 'built-in';
-      }
-      return parsed;
+      // Ensure specific fields that the user updated are synced if they were empty or default
+      if (!parsed.hero.image.includes('googleusercontent')) parsed.hero.image = INITIAL_CONTENT.hero.image;
+      
+      // Merge with INITIAL_CONTENT to ensure any new structural changes are captured
+      return { ...INITIAL_CONTENT, ...parsed };
     } catch (e) {
       return INITIAL_CONTENT;
     }
@@ -33,7 +33,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('oxley_content_v3', JSON.stringify(content));
+    localStorage.setItem('oxley_content_v4_final', JSON.stringify(content));
   }, [content]);
 
   const updateContent = (newContent: SiteContent) => {

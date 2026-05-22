@@ -244,7 +244,7 @@ export const Footer: React.FC<{
           <div>
              <h4 className="text-[10px] font-sans text-white/60 uppercase tracking-[0.3em] mb-8 font-bold">Correspondence</h4>
              <p className="text-white/90 text-sm mb-2 font-serif italic">{content.agent.phone}</p>
-             <p className="text-white/30 text-[9px] lowercase tracking-widest">inquiry@{content.project.name.en.toLowerCase().replace(/\s/g, '')}.com</p>
+             <p className="text-white/30 text-[9px] lowercase tracking-widest">{content.agent.email || `inquiry@${content.project.name.en.toLowerCase().replace(/\s/g, '')}.com`}</p>
           </div>
         </div>
 

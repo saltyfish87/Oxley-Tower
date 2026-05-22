@@ -937,12 +937,11 @@ export const INITIAL_CONTENT: SiteContent = {
       "en": "WhatsApp Inquiry",
       "zh": "WhatsApp 咨询"
     },
-    "formType": "built-in",
-    "embedCode": ""
+    "formType": "built-in"
   },
   "agent": {
-    "name": "IQI Holdings SDN BHD",
-    "ren": "",
+    "name": "Yee Woei Shyan",
+    "ren": "46305",
     "agency": "IQI Holdings SDN BHD",
     "agencyReg": "E(1)1584",
     "phone": "+60195598932",
@@ -952,8 +951,8 @@ export const INITIAL_CONTENT: SiteContent = {
   },
   "disclaimers": {
     "management": {
-      "en": "This website is managed by IQI Agency. It is for informational and marketing purposes only and does not represent the official website of the developer.",
-      "zh": "本网站由 IQI 代理公司管理。仅供参考和营销之用，不代表开发商的官方网站。"
+      "en": "This website is managed by Yee Woei Shyan (REN 46305) of IQI Agency. It is for informational and marketing purposes only and does not represent the official website of the developer.",
+      "zh": "本网站由 IQI 代理公司的 Yee Woei Shyan (REN 46305) 管理。仅供参考和营销之用，不代表开发商的官方网站。"
     },
     "general": {
       "en": "All information is subject to change. Architectural renderings and artist impressions are for illustrative purposes only.",
