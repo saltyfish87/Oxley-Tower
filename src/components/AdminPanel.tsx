@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useContent } from '../hooks/useContent';
-import { Settings, X, Save, Plus, Trash2, Image, Type, MessageSquare, Layout as LayoutIcon, ChevronRight, ChevronDown } from 'lucide-react';
+import { Settings, X, Save, Plus, Trash2, Image, Type, MessageSquare, Layout as LayoutIcon, ChevronRight, ChevronDown, Download, Copy, Check } from 'lucide-react';
 import { SiteContent, LayoutItem } from '../types';
 import { normalizeDriveUrl } from '../lib/utils';
 import { INITIAL_CONTENT } from '../constants';
@@ -9,14 +9,24 @@ import { INITIAL_CONTENT } from '../constants';
 export const AdminPanel: React.FC = () => {
   const { content, updateContent, isEditing, setIsEditing } = useContent();
   const [tempContent, setTempContent] = React.useState<SiteContent>(content);
+  const [copied, setCopied] = React.useState(false);
 
   React.useEffect(() => {
-    if (isEditing) setTempContent(content);
+    if (isEditing) {
+      setTempContent(content);
+      setCopied(false);
+    }
   }, [isEditing, content]);
 
   const handleSave = () => {
     updateContent(tempContent);
     setIsEditing(false);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(JSON.stringify(tempContent, null, 2));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const updateField = (path: string, value: any) => {
@@ -58,12 +68,24 @@ export const AdminPanel: React.FC = () => {
                 <Settings className="w-6 h-6 text-black" />
                 <h2 className="text-xl font-bold">Content Manager</h2>
               </div>
-              <button 
-                onClick={() => setIsEditing(false)}
-                className="p-2 hover:bg-white rounded-full transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center space-x-2">
+                <button 
+                  onClick={copyToClipboard}
+                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    copied ? 'bg-green-100 text-green-700' : 'bg-white border hover:bg-gray-50'
+                  }`}
+                  title="Copy current configuration to clipboard"
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  <span>{copied ? 'Copied!' : 'Copy Config'}</span>
+                </button>
+                <button 
+                  onClick={() => setIsEditing(false)}
+                  className="p-2 hover:bg-white rounded-full transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
             <div className="flex-1 overflow-y-auto p-8 space-y-12 pb-32">
@@ -521,6 +543,16 @@ export const AdminPanel: React.FC = () => {
                       value={tempContent.agent.ren} 
                       onChange={(e) => updateField('agent.ren', e.target.value)}
                       className="w-full p-3 border rounded-xl"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block text-sm font-medium mb-2">Email Address</label>
+                    <input 
+                      type="email" 
+                      value={tempContent.agent.email || ''} 
+                      onChange={(e) => updateField('agent.email', e.target.value)}
+                      className="w-full p-3 border rounded-xl"
+                      placeholder="e.g. agent@example.com"
                     />
                   </div>
                   <div className="col-span-2">

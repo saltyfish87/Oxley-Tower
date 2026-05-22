@@ -40,6 +40,7 @@ export interface AgentDetails {
   agency: string;
   agencyReg: string;
   phone: string;
+  email?: string;
   whatsappMessage: string;
   address: string;
 }
