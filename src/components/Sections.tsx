@@ -356,17 +356,26 @@ export const TowersExplorer: React.FC = () => {
                               >
                                 <div className="p-2 border border-oxley-gold/10 text-oxley-gold group-hover:bg-oxley-gold group-hover:text-white transition-all duration-500">
                                    <Check className="w-3 h-3" />
-                                </div>
+                                 </div>
                                 <span className="text-xs font-sans uppercase tracking-[0.2em] font-bold text-oxley-green/60 group-hover:text-oxley-green transition-colors">{perk[language]}</span>
                               </motion.div>
                             ))}
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4">
-                          <button className="oxley-gold-button flex-1 py-6 group">
-                             <span>Private Viewing</span>
-                             <ArrowRight className="w-4 h-4 button-icon-animate" />
-                          </button>
+                          <a 
+                            href={`https://wa.me/${content.agent.phone}?text=${encodeURIComponent(
+                              language === 'en'
+                                ? `[OXLEY KLCC - ${selectedTower === 'so' ? 'SO/ KL Residences' : 'Jewel Residences'} ${layout.type.en}] Hello, I am interested in ${selectedTower === 'so' ? 'SO/ KL Residences' : 'Jewel Residences'}, ${layout.type.en} (${layout.size.en}). Please send me details or schedule a private viewing.`
+                                : `[OXLEY KLCC - ${selectedTower === 'so' ? 'SO/ 索菲特品牌公寓' : '珍宝精品公寓'} ${layout.type.zh}] 您好，我对 ${selectedTower === 'so' ? 'SO/ 索菲特品牌公寓' : '珍宝精品公寓'} 的 ${layout.type.zh} 户型 (${layout.size.zh}) 很感兴趣，请发给我更多详情或安排私人看房。`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="oxley-gold-button flex-1 py-6 group text-center flex items-center justify-center cursor-pointer"
+                          >
+                             <span>{language === 'en' ? 'Private Viewing' : '预约私人看房'}</span>
+                             <ArrowRight className="w-4 h-4 button-icon-animate ml-2" />
+                          </a>
                         </div>
                      </div>
                   </motion.div>

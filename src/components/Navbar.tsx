@@ -73,7 +73,10 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile Toggle */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-white hover:text-luxury-gold transition-colors">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className={`transition-colors duration-500 ${scrolled ? 'text-oxley-green hover:text-oxley-gold' : 'text-white hover:text-oxley-gold'}`}
+            >
               {isOpen ? <X className="w-8 h-8 stroke-[1px]" /> : <Menu className="w-8 h-8 stroke-[1px]" />}
             </button>
           </div>
@@ -115,9 +118,11 @@ export const Navbar: React.FC = () => {
                  </button>
                  <a
                    href={whatsappUrl}
-                   className="oxley-gold-button w-full py-5 text-center justify-center"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="oxley-gold-button w-full py-5 text-center justify-center flex items-center"
                  >
-                    {language === 'en' ? 'Schedule a Tour' : '预约导览'}
+                    <span>{language === 'en' ? 'Schedule a Tour' : '预约导览'}</span>
                  </a>
               </div>
             </div>

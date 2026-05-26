@@ -167,7 +167,10 @@ export const CTA: React.FC = () => {
                 <ArrowRight className="w-5 h-5 button-icon-animate" />
               </a>
 
-              <div className="flex items-center gap-6 group cursor-pointer">
+              <a 
+                href={`tel:${content.agent.phone}`}
+                className="flex items-center gap-6 group cursor-pointer"
+              >
                 <div className="w-16 h-16 border border-white/20 flex items-center justify-center text-white group-hover:border-oxley-gold group-hover:text-oxley-gold transition-all duration-500">
                   <Phone className="w-5 h-5 stroke-[1px]" />
                 </div>
@@ -175,7 +178,7 @@ export const CTA: React.FC = () => {
                   <p className="text-[10px] uppercase font-sans tracking-[0.2em] text-white/40 mb-1">Direct Liaison</p>
                   <p className="text-xl font-serif italic text-white group-hover:text-oxley-gold transition-colors">{content.agent.phone}</p>
                 </div>
-              </div>
+              </a>
             </div>
           )}
         </motion.div>

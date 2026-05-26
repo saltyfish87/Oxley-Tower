@@ -64,9 +64,18 @@ export const Hero: React.FC = () => {
                 <span>{language === 'en' ? 'Explore Legacy' : '探索传承'}</span>
                 <ArrowRight className="w-4 h-4 button-icon-animate" />
              </button>
-             <button className="text-white/40 hover:text-white font-sans text-[10px] uppercase tracking-[0.4em] transition-all duration-500 border-b border-white/20 hover:border-white pb-2 font-bold">
-                Private Viewing
-             </button>
+             <a 
+               href={`https://wa.me/${content.agent.phone}?text=${encodeURIComponent(
+                 language === 'en'
+                   ? `[OXLEY KLCC] Hello, I would like to schedule a private viewing/review of Oxley Towers KLCC.`
+                   : `[OXLEY KLCC] 您好，我想预约私人看房并了解吉隆坡豪利大厦（Oxley Towers KLCC）。`
+               )}`}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="text-white/40 hover:text-white font-sans text-[10px] uppercase tracking-[0.4em] transition-all duration-500 border-b border-white/20 hover:border-white pb-2 font-bold cursor-pointer"
+             >
+                {language === 'en' ? 'Private Viewing' : '预约私人看房'}
+             </a>
           </div>
         </motion.div>
       </div>
