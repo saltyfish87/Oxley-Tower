@@ -68,12 +68,22 @@ const SEOManager: React.FC = () => {
       updateMeta('description', content.seo.description);
       updateMeta('keywords', content.seo.keywords);
       
+      const currentUrl = 'https://' + window.location.hostname + '/';
+      updateOgMeta('og:url', currentUrl);
+      updateMeta('twitter:url', currentUrl);
+      
       updateOgMeta('og:title', content.seo.title);
       updateOgMeta('og:description', content.seo.description);
       updateOgMeta('og:image', content.hero.image);
       updateMeta('twitter:title', content.seo.title);
       updateMeta('twitter:description', content.seo.description);
       updateMeta('twitter:image', content.hero.image);
+
+      // Force dynamic canonical update on runtime config shifts
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.setAttribute('href', currentUrl);
+      }
     }
   }, [content.seo, content.hero.image]);
 
