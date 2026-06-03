@@ -68,9 +68,9 @@ const SEOManager: React.FC = () => {
       updateMeta('description', content.seo.description);
       updateMeta('keywords', content.seo.keywords);
       
-      const currentUrl = 'https://' + window.location.hostname + '/';
-      updateOgMeta('og:url', currentUrl);
-      updateMeta('twitter:url', currentUrl);
+      const canonicalUrl = 'https://www.oxley-towers.my/';
+      updateOgMeta('og:url', canonicalUrl);
+      updateMeta('twitter:url', canonicalUrl);
       
       updateOgMeta('og:title', content.seo.title);
       updateOgMeta('og:description', content.seo.description);
@@ -79,10 +79,10 @@ const SEOManager: React.FC = () => {
       updateMeta('twitter:description', content.seo.description);
       updateMeta('twitter:image', content.hero.image);
 
-      // Force dynamic canonical update on runtime config shifts
+      // Force core canonical update on runtime config shifts
       let canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
-        canonical.setAttribute('href', currentUrl);
+        canonical.setAttribute('href', canonicalUrl);
       }
     }
   }, [content.seo, content.hero.image]);

@@ -9,27 +9,18 @@
     <meta name="google-site-verification" content="Ab5i00u4RrHrjxDmekzJHfWuql7SHaiIKwzP6mSb1x0" />
     <link rel="canonical" href="https://www.oxley-towers.my/" />
     
-    <!-- SEO Protection & Dynamic Canonical Solver -->
+    <!-- SEO Protection & Canonical Resolver -->
     <script>
       (function() {
         var hostname = window.location.hostname;
         var isProd = hostname === 'www.oxley-towers.my' || hostname === 'oxley-towers.my';
         
-        // 1. Force prevent indexing of any development, staging, or preview hosting domains
+        // Force prevent indexing of any development, staging, or preview hosting domains
         if (!isProd) {
           var metaRobots = document.createElement('meta');
           metaRobots.name = 'robots';
           metaRobots.content = 'noindex, nofollow';
           document.head.appendChild(metaRobots);
-        } else {
-          // 2. Set dynamic canonical href targeting the active production domain (www vs non-www)
-          // directly matching whatever production URL Google is indexing, avoiding discrepancy
-          var canonicalLink = document.querySelector('link[rel="canonical"]') || document.createElement('link');
-          canonicalLink.rel = 'canonical';
-          canonicalLink.href = 'https://' + hostname + '/';
-          if (!canonicalLink.parentNode) {
-            document.head.appendChild(canonicalLink);
-          }
         }
       })();
     </script>
